@@ -19,7 +19,7 @@ function PlantList() {
 
   return (
     <div>
-      <h3>This is the plant list</h3>
+      <h3>Our Plants</h3>
       {reduxState.map((plantItem) => {
         return <PlantItem key={plantItem.id} plantItem={plantItem} />;
       })}
