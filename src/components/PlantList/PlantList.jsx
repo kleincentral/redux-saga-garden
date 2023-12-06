@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PlantItem from "../PlantItem/PlantItem";
 
 function PlantList() {
-    const dispatch = useDispatch();
+  useEffect(() => {
+    getPlants();
+  }, []);
 
-    const reduxState = useSelector(store => store);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        // dispatch an action to request the plantList from the API
-    }, []); 
+  const getPlants = () => {
+    dispatch({
+      type: "SAGA/GET_PLANT",
+    });
+  };
 
-    return (
-        <div>
-            <h3>This is the plant list</h3>
-            <pre>{JSON.stringify(reduxState)}</pre>
-        </div>
-    );
+  const reduxState = useSelector((store) => store.plantList);
+
+  return (
+    <div>
+      <h3>This is the plant list</h3>
+      {reduxState.map((plantItem) => {
+        return <PlantItem key={plantItem.id} plantItem={plantItem} />;
+      })}
+    </div>
+  );
 }
 
 export default PlantList;
